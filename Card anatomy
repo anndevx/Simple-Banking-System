@@ -1,0 +1,73 @@
+import random
+
+user_cards = dict()
+
+
+def generate_pin():
+    password = int(random.randint(0000, 9999))
+    return password
+
+
+def generate_card():
+    iin = 400000
+    generate_num = int(random.randint(000000000, 999999999))
+    return int(str(iin) + str(generate_num) + str(random.randint(0, 9)))
+
+
+def create_card(card, pin):
+    global user_cards
+    user_cards[card] = pin
+
+
+def user_input():
+    user_choice = int(input('''1. Create an account
+2. Log into account
+0. Exit\n'''))
+
+    if user_choice == 0:
+        print('Bye!')
+        exit()
+    elif user_choice == 1:
+        card = generate_card()
+        pin = generate_pin()
+        print(f"""Your card has been created
+Your card number:
+{card}
+Your card PIN:
+{pin}
+        """)
+        create_card(card, pin)
+        user_input()
+
+    elif user_choice == 2:
+        login_user()
+
+
+def login_user():
+
+    card = int(input('Enter your card number:\n'))
+    pin = int(input('Enter your PIN:\n'))
+    for key, value in user_cards.items():
+        if key == card and value == pin:
+            print('You have successfully logged in!')
+            balance()
+        else:
+            print('Wrong card number or PIN!')
+            user_input()
+
+def balance():
+    choice = int(input('''1. Balance
+2. Log out
+0. Exit\n'''))
+    if choice == 1:
+        print('Balance: 0')
+        balance()
+    elif choice == 2:
+        print('You have successfully logged out!')
+        user_input()
+    elif choice == 0:
+
+        exit('Bye!')
+
+
+user_input()
